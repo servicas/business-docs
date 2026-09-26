@@ -3,37 +3,35 @@
 For investors, pilot partners, and advisors. What is built, how the business model is
 wired into it, and what the next 90 days test.
 
-Companion docs: [BUSINESS_OVERVIEW.md](./BUSINESS_OVERVIEW.md) (market, competition,
-funding ask) · [INVESTOR_BRIEF.md](./INVESTOR_BRIEF.md) (one page). Technical
-architecture is available on request.
+Companion docs: [BUSINESS_OVERVIEW.md](./BUSINESS_OVERVIEW.md) (market, competition, the
+ask) · [INVESTOR_BRIEF.md](./INVESTOR_BRIEF.md) (one page). Technical architecture is
+available on request.
 
 > **Stage.** Built, deployed, pre-launch. No production customers, GMV, or revenue.
-> Figures here are either **configuration that exists in the product** (marked *built*)
-> or **model assumptions** (marked *illustrative*). Nothing is reported traction.
+> Figures here are either **configuration that exists in the product** (*built*) or
+> **model assumptions** (*illustrative*). Nothing here is reported traction.
 
 ---
 
 ## 1. What Servicas is
 
-An AI-augmented marketplace *and* operating system for home services — HVAC, plumbing,
-electrical, cleaning, lawn, pool, childcare, emergency repair. Customers describe a
-problem in text, voice, or a photo; AI matches verified local providers; booking, chat,
-invoicing, payment, reviews, and disputes all stay on platform. Providers run their
-whole job operation in the same app. Operators launch and govern new markets from an
-admin console instead of an engineering ticket.
+A customer describes a problem in text, voice, or a photo. AI ranks verified local
+providers. Booking, chat, invoicing, payment, reviews, and disputes all stay on platform.
+Providers run their whole job operation in the same app. Operators open and govern a
+market from an admin console instead of an engineering ticket.
 
-**The wedge:** incumbents (Angi, Thumbtack, TaskRabbit, Handy) sell *leads*. Providers
-pay $30–$120 per lead at roughly a 10% close rate. Servicas charges on completed work
-and gives the provider the operating system for free.
+Angi, Thumbtack, TaskRabbit, and Handy sell leads: $30–$120 each, closing about one in
+ten, paid whether or not a job happens. Servicas charges on completed work and gives the
+provider the operating system for free.
 
 ---
 
 ## 2. What is built
 
-A deployed application, not a clickable mockup: one React codebase shipped to web,
-iOS/Android, and desktop, against seven Spring Boot services on Google Cloud Run, each
-with its own database. A feature ships once and appears on all three platforms — which
-is why a small team covers a five-workspace product.
+A deployed application, not a clickable mockup. One React codebase reaches web, iOS,
+Android, and desktop, against seven Spring Boot services on Google Cloud Run, each with
+its own database. A feature ships once and lands everywhere — which is how a small team
+covers a five-workspace product.
 
 | Layer | Status | Notes |
 |---|---|---|
@@ -45,57 +43,58 @@ is why a small team covers a five-workspace product.
 | Monetization — bundles, pay-per-action, section gating | **Built** | Admin-editable, no code release (§4) |
 | Payments — Stripe, Square, PayPal, Apple Pay | **Built, sandbox** | Provider-agnostic adapters |
 | Production traffic, GMV, revenue | Not started | Pre-launch by design |
-| Legal entity per market, insurance attach, background checks | Not started | Contracted at pilot launch |
+| Legal entity per market, insurance, background checks | Not started | Contracted at pilot launch |
 
-The engineering repo keeps a running list of the sections that are still
-dashboard-style rather than full workflows; it is available to anyone doing diligence.
+The engineering repo keeps a running list of the sections that are still dashboard-style
+rather than full workflows; it is available to anyone doing diligence.
 
 ---
 
 ## 3. Business model
 
-| Block | Servicas |
+Three groups pay attention to Servicas for different reasons. **Customers** want a
+verified provider at a transparent price and one place to book, pay, and complain.
+**Providers** want to stop paying for leads that go nowhere, and they get a job OS,
+native-language chat, and fast payout in exchange for a share of work that actually
+completes. **Operators** — regional managers now, franchises and municipal programs
+later — want to open a market in days, which is possible because catalog, tax,
+compliance, pricing, roles, and payment rails are all configuration.
+
+What it takes to run, beyond the platform itself:
+
+| | |
 |---|---|
-| **Customer segments** | Homeowners 30–55 · bilingual households · property managers and short-let hosts · small businesses. Supply side: independent tradespeople (1–5 staff), immigrant-owned businesses, multi-truck shops. Operators: franchise/co-op and municipal programs (white-label). |
-| **Value proposition** | *Customers:* verified provider, transparent price, one place for booking → payment → dispute. *Providers:* no pay-per-lead, a full job OS, native-language chat, fast payout. *Operators:* launch a market in days — catalog, tax, compliance, pricing, roles, payment rails are all configuration. |
-| **Channels** | Paid social by ZIP · local and category SEO · door-knock supply recruiting · trade associations · provider referral · B2B referrers (property managers, hosts) |
-| **Relationships** | Self-serve app · in-app chat with translation · AI assistant as first-line support · human desk for escalation · regional-manager franchise motion |
-| **Revenue** | Take rate (primary) · subscription bundles *(built)* · pay-per-action *(built)* · featured placement · FX margin · insurance attach |
-| **Key resources** | Seven-service platform · five role workspaces · multi-market geo and compliance engine · admin-tuned AI prompt layer · provider liquidity |
-| **Key activities** | Provider recruiting and vetting · demand acquisition per metro · catalog and market configuration · trust, safety and disputes |
+| **Key activities** | Recruiting and vetting providers · buying demand per metro · configuring catalogs and markets · trust, safety, and disputes |
 | **Key partners** | Payment providers · background-check and insurance vendors · trade associations · AI and geo providers · property-management software · regional managers |
-| **Costs** | Provider and customer acquisition (dominant) · engineering · cloud and AI inference (low, elastic) · trust and safety · support desk (scales sublinearly thanks to AI summarization) |
+| **Cost structure** | Provider and customer acquisition dominate. Engineering next. Cloud and AI inference are small and elastic. The support desk grows slower than bookings because AI drafts the summaries and replies. |
 
 ---
 
 ## 4. How it makes money
 
-Primary stream is a take rate on completed bookings, charged to the provider at
-settlement. The customer-facing price stays clean.
+A take rate on completed bookings, charged to the provider at settlement. The price the
+customer sees stays clean.
 
 | Stream | State | Detail |
 |---|---|---|
 | Take rate on completed bookings | Rails built; rate applied at launch | 10–15% of booking value, blended by category |
 | Subscription bundles, customer + provider | **Built, admin-configurable** | Price, currency, interval, trial, and which sections a tier unlocks |
-| Pay-per-action | **Built** | A non-subscriber accepts a per-search / per-contact fee instead of subscribing |
+| Pay-per-action | **Built** | A non-subscriber pays per search or per contact instead of subscribing |
 | Featured placement | Designed | Capped per category to protect trust; off during pilot |
-| FX margin on cross-border settlement | Rate table built; margin not applied | 0.5–1.0% |
+| FX margin on cross-border settlement | Rate table built; not applied | 0.5–1.0% |
 | Insurance / warranty attach | Designed | Vendor contracted at pilot launch |
 
-**Why this is unusual at seed stage.** Pricing and packaging are stored as data, not
-compiled into the app. An operator changes a tier's price, trial, or contents from the
-admin console with no release — so a pilot can test three price points in a quarter
-instead of three release cycles. Two willingness-to-pay curves run on one mechanism:
-committed users subscribe, occasional users pay per action, so casual demand a
-subscription-only model would lose is still monetized. Both sides of the market use the
-identical machinery.
+**Why this is unusual at seed stage.** Pricing is data, not code. An operator changes a
+tier's price, trial, or contents from the admin console with no release, so the pilot
+tests three price points in a quarter instead of three release cycles. And two
+willingness-to-pay curves run on one mechanism: committed users subscribe, occasional
+users pay per action, so casual demand a subscription-only model would lose still pays.
 
 ---
 
 ## 5. Unit economics (illustrative)
 
-On a $180 average booking at a 12% take rate, contribution is **$14.20 per booking** —
-66% of revenue.
+On a $180 average booking at a 12% take rate, contribution is **$14.20** — 66% of revenue.
 
 | Line | Per booking |
 |---|---|
@@ -106,18 +105,15 @@ On a $180 average booking at a 12% take rate, contribution is **$14.20 per booki
 | Support / dispute reserve (1% of GMV) | −$1.80 |
 | **Contribution** | **$14.20** |
 
-| Driver | Pilot assumption |
-|---|---|
-| Bookings per customer, year 1 | 2.4 (maintenance reminders, rebook, recurring services) |
-| 24-month customer LTV, take rate only | ~$98 |
-| Provider CAC | ~$80, falling as the referral loop kicks in |
-| Customer CAC | $35–$60, falling as catalog SEO compounds |
-| LTV : CAC | 1.2× early, target 3× at metro density |
+A customer books 2.4 times in year one — reminders, rebooks, recurring work — worth ~$98
+of take-rate LTV over 24 months. Provider CAC starts near $80 and falls as referrals kick
+in; customer CAC runs $35–$60 and falls as catalog SEO compounds. LTV:CAC is about 1.2×
+early, with 3× the target once a metro is dense.
 
-Bundles change the shape, not the size: a $19/month customer bundle at 8% attach adds
-~$1.80 per active customer per month at near-zero marginal cost. A provider Pro tier at
-25% attach on 100 providers is ~$1.2k MRR — small in absolute terms, but it is the
-direct evidence that providers value the operating system over lead flow.
+Bundles change the shape, not the size. A $19/month customer bundle at 8% attach adds
+~$1.80 per active customer per month at almost no marginal cost. A provider Pro tier at
+25% attach across 100 providers is ~$1.2k MRR — small money, but it is direct evidence
+that providers value the operating system over lead flow.
 
 ---
 
@@ -135,16 +131,16 @@ Model output, not a forecast.
 | Bundle + per-action | — | $2k | $12k | $38k | $92k |
 | Monthly burn | $85k | $110k | $160k | $220k | $300k |
 
-**The one sensitivity that decides the model:** bookings per active provider per month.
-At four it works; at two, the supply cost doubles. That ratio is what the pilot buys
-information about, and it is the number to press us on.
+**One number decides whether this holds:** bookings per active provider per month. At
+four it works. At two, the cost of supply doubles and the model breaks. That ratio is
+what the pilot buys information about, and it is the number to press us on.
 
 ---
 
 ## 7. The 90-day pilot
 
 One Sun-Belt metro, 100 verified providers across four categories. Seven experiments,
-each with one metric and a decision rule committed in advance.
+each with one metric and a decision rule committed before it starts.
 
 | Hypothesis | Metric | Decision rule |
 |---|---|---|
@@ -153,36 +149,36 @@ each with one metric and a decision rule committed in advance.
 | The job stays on platform | Share of bookings invoiced + paid in app | Scale >70%; investigate leakage <50% |
 | Customers repeat | 90-day repeat booking rate | Scale ≥25% |
 | Willingness to pay exists beyond the take rate | Bundle attach %, per-action acceptance % | Keep whichever clears 5%; drop the other |
-| Support scales sublinearly | Support minutes per booking, M1 vs M6 | Scale if it falls ≥30% |
+| Support cost per booking falls as volume grows | Support minutes per booking, M1 vs M6 | Scale if it falls ≥30% |
 | A market launches by configuration | Days from market chosen to first live booking | Target <14 days, no engineering ticket |
 
-Sequence: weeks 1–2 market and entity · 3–6 supply (target 60 job-ready providers) ·
-5–10 demand (CAC inside the $35–$60 band) · 7–12 pricing A/B · 9–13 trust vendors live
-(dispute rate <3%, resolution <48h) · 12–13 readout and the call on metro #2.
+Weeks 1–2 market and entity · 3–6 supply, targeting 60 job-ready providers · 5–10 demand,
+holding CAC inside the $35–$60 band · 7–12 the pricing A/B · 9–13 trust vendors live, with
+disputes under 3% and resolution under 48h · 12–13 readout and the call on metro #2.
 
 Deliberately out of scope: a second metro, white-label, an open API, Europe. The failure
 mode at this stage is breadth, not depth.
 
-**The signal that matters most** is unmet demand by service × ZIP — simultaneously the
-provider recruiting list and the input to market-readiness scoring. Waitlist joins are
-captured today; capturing searches that returned no bookable provider is the first
-instrumentation task at launch (a two-week build, not a research problem).
+**The signal worth the most** is unmet demand by service × ZIP — the provider recruiting
+list and the market-readiness input in one. Waitlist joins are captured today; logging
+searches that returned no bookable provider is the first instrumentation task at launch,
+a two-week build.
 
 ---
 
 ## 8. The demo (12 minutes)
 
-One real booking followed across all five workspaces, in the order that tells the
-business story rather than the feature list. Demo accounts are provided on request.
+One real booking followed across all five workspaces, in the order that tells the business
+story rather than the feature list. Demo accounts are provided on request.
 
 | Min | Workspace | What you see | The point |
 |---|---|---|---|
 | 0–2 | Customer | Describe a problem in plain language; AI ranks nearby verified providers | Demand capture without forms |
 | 2–4 | Customer | Book a slot; job goes requested → scheduled | Nothing is sold until a job exists |
-| 4–6 | Provider | Same job in the inbox: accept, quote, invoice | The economics inversion |
+| 4–6 | Provider | The same job in the inbox: accept, quote, invoice | The economics inversion |
 | 6–7.5 | Customer | Pay the invoice; receipt; review | Money stays on platform — the take rate lands here |
-| 7.5–9 | Support | Dispute on that booking: evidence, refund decision | The trust layer |
-| 9–11 | Admin | Market rules, catalog rollout, change a subscription price live | New market and new price are configuration |
+| 7.5–9 | Support | A dispute on that booking: evidence, refund decision | The trust layer |
+| 9–11 | Admin | Market rules, catalog rollout, a subscription price changed live | A new market and a new price are configuration |
 | 11–12 | Regional | Readiness scoring for an unlaunched market | How metros 2–20 get chosen |
 
 ---
@@ -192,29 +188,29 @@ business story rather than the feature list. Demo accounts are provided on reque
 | Risk | Mitigation |
 |---|---|
 | Two-sided cold start | One metro; supply recruited before paid demand switches on |
-| Trust or safety incident | Verification badges, document review, insurance attach, dispute + evidence workflow already built |
-| Providers churn back to lead-gen | The job OS (invoices, payouts, chat, ratings, documents) is the switching cost — experiment #1 measures it |
+| Providers churn back to lead-gen | The job OS — invoices, payouts, chat, ratings, documents — is the switching cost. Experiment #1 measures it. |
+| Trust or safety incident | Verification badges, document review, insurance attach, and the dispute + evidence workflow are built |
 | Payment provider concentration | Provider-agnostic adapters; volume moves between rails without a code change |
-| AI cost or vendor risk | Prompts stored server-side and admin-tuned; models swappable without a release |
+| AI cost or vendor risk | Prompts stored server-side and admin-tuned; models swap without a release |
 | Licensing and tax per market | Per-market compliance rules in the geo engine; legal review per state at launch |
-| Key-person concentration | Docs, CI/CD and tests in place; first hires are senior backend + mobile |
+| Key-person concentration | Docs, CI/CD, and tests in place; first hires are senior backend + mobile |
 | Pre-revenue | Acknowledged — the raise funds go-to-market for a product already built |
 
 ---
 
 ## 10. The ask
 
-A seed round to take one metro to liquidity: provider recruiting, customer acquisition,
-two senior engineering hires, trust-and-safety vendors — reported against the seven
-experiments in §7. Breakdown:
+A seed round to take one metro to real transaction volume: provider recruiting, customer
+acquisition, two senior engineering hires, trust-and-safety vendors — reported against the
+seven experiments in §7. Breakdown:
 [BUSINESS_OVERVIEW.md §11](./BUSINESS_OVERVIEW.md#11-the-ask-illustrative--2m-seed).
 
 Useful beyond capital: pilot partners with concentrated demand or supply in one metro
 (property managers, short-let operators, trade associations), introductions to
 background-check and insurance vendors, and a first metro-launcher hire.
 
-**Most marketplaces raise to build the product. This one is built; the raise puts it
-into a market.**
+**Most marketplaces raise to build the product. This one is built; the raise puts it into
+a market.**
 
 ---
 
@@ -223,12 +219,12 @@ into a market.**
 **Prototype or product?** A product, pre-launch. Five workspaces, seven services, three
 platforms, CI-green, deployed. What is missing is customers, not code.
 
-**Why will providers switch?** They stop paying for leads that do not convert and get a
-free operating system for work they already do. Experiment #1 measures exactly that,
+**Why will providers switch?** They stop paying for leads that do not convert, and they
+get a free operating system for work they already do. Experiment #1 measures exactly that,
 with a kill rule.
 
 **Riskiest assumption?** Bookings per active provider per month (§6).
 
 ---
 
-_Pilot version · last updated 2026-09-23._
+_Pilot version · last updated 2026-09-26._

@@ -6,19 +6,21 @@ demo) · [BUSINESS_OVERVIEW.md](./BUSINESS_OVERVIEW.md) (market, competition, as
 > **Stage:** built, deployed, pre-launch. No production customers, GMV, or revenue.
 > Figures are model assumptions unless marked *built*.
 
-**What it is.** An AI-augmented marketplace *and* operating system for home services —
-HVAC, plumbing, electrical, cleaning, lawn, pool, childcare, emergency repair. Customers
-describe a problem in text, voice, or a photo; AI matches verified local providers;
-booking, chat, invoicing, payment, reviews, and disputes all stay on platform.
+**What it is.** Someone's air conditioning dies. They describe the problem to Servicas —
+typed, spoken, or photographed — and AI ranks verified local providers who can come. They
+book, chat, pay, and review without leaving the app. Disputes are settled there too. The
+categories are HVAC, plumbing, electrical, cleaning, lawn, pool, childcare, and emergency
+repair.
 
-**The problem.** Incumbents (Angi, Thumbtack, TaskRabbit, Handy) sell *leads, not
-outcomes*: providers pay $30–$120 per lead at roughly a 10% close rate, then run the
-actual business in spreadsheets and camera rolls. Customers face 3–5× price spreads,
-opaque verification, and disputes settled in DMs. Non-English-speaking providers — a
-large share of the labor pool — are barely served.
+**The problem.** Angi, Thumbtack, TaskRabbit, and Handy sell *leads, not outcomes*.
+Providers pay $30–$120 a lead and win about one in ten, then run the real business in
+spreadsheets and camera rolls. Customers face 3–5× price spreads, opaque verification, and
+disputes settled in DMs. And English-only platforms barely serve the immigrant-owned
+businesses that make up much of this labor pool.
 
-**The wedge.** Charge on completed work, not on leads. Give the provider the operating
-system for free and take a share of the transaction it produces.
+**The answer.** Charge on completed work, never on leads. The provider gets the operating
+system free — inbox, quotes, invoices, payouts, ratings, translated chat — and Servicas
+takes a share of the work it produces. The incentives finally point the same way.
 
 ### Built today
 
@@ -75,4 +77,4 @@ into a market.**
 _Live demo on request: one booking followed across all five workspaces, from AI match to
 payment to dispute. Script in [BUSINESS_PROTOTYPE.md §8](./BUSINESS_PROTOTYPE.md#8-the-demo-12-minutes)._
 
-_Last updated 2026-09-23._
+_Last updated 2026-09-26._

@@ -1,10 +1,12 @@
 # Servicas — Business Documentation
 
-Servicas is an AI-augmented marketplace **and** operating system for home services —
-HVAC, plumbing, electrical, cleaning, lawn, pool, childcare, emergency repair.
-Customers describe a problem in text, voice, or a photo; AI matches verified local
-providers; booking, chat, invoicing, payment, reviews, and disputes all stay on
-platform. Providers run their whole job operation in the same app.
+Someone's air conditioning dies. They describe the problem to Servicas — typed, spoken,
+or photographed — and AI ranks verified local providers who can actually come. They book,
+chat, pay, and review without leaving the app, and disputes are settled there too.
+Providers run their whole job operation in the same place, free: inbox, quotes, invoices,
+payouts, ratings, and customer chat that translates itself.
+
+Categories: HVAC, plumbing, electrical, cleaning, lawn, pool, childcare, emergency repair.
 
 > **Stage:** built, deployed, pre-launch. No production customers, GMV, or revenue yet.
 > Figures in these documents are model assumptions unless explicitly marked as built.
@@ -19,13 +21,12 @@ platform. Providers run their whole job operation in the same app.
 
 ## In one paragraph
 
-Incumbents in home services sell **leads, not outcomes**: providers pay $30–$120 per
-lead at roughly a 10% close rate, then run the actual business in spreadsheets. Servicas
-charges only on completed work and gives the provider the operating system for free.
-Five role workspaces (customer, provider, admin, support, regional manager) run on seven
-backend services; one codebase reaches web, mobile, and desktop. Pricing and packaging —
-subscription bundles and a pay-per-action tier — are stored as configuration, so a pilot
-can test price points without an engineering release.
+Incumbents sell **leads, not outcomes**: providers pay $30–$120 per lead, win about one
+in ten, and pay whether or not a job happens. Servicas charges only on completed work, so
+the provider's incentive and ours finally point the same way. Five workspaces — customer,
+provider, admin, support, regional manager — run on seven backend services, and one
+codebase reaches web, mobile, and desktop. Pricing and packaging are stored as
+configuration, so a pilot can test price points without an engineering release.
 
 ## What is not in this repository
 
