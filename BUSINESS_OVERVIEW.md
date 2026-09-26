@@ -1,408 +1,278 @@
 # Servicas — Business Overview
 
-A pitch-ready brief for investors, advisors, and early hires. Technical architecture
-and per-panel product documentation are available on request.
+Market, competition, and the funding ask. Companion docs:
+[BUSINESS_PROTOTYPE.md](./BUSINESS_PROTOTYPE.md) (what is built, business model canvas,
+pilot experiments, demo script) · [INVESTOR_BRIEF.md](./INVESTOR_BRIEF.md) (one page).
+Technical architecture is available on request.
 
-For the business model canvas, the live demo script, the pilot experiment set with
-decision rules, and how monetization is wired into the product, see
-[BUSINESS_PROTOTYPE.md](./BUSINESS_PROTOTYPE.md). For a one-pager to send ahead of a
-meeting, see [INVESTOR_BRIEF.md](./INVESTOR_BRIEF.md).
-
-> **Stage disclosure.** Servicas is in pilot. The product is feature-complete across
-> seven backend services and five user panels, deployed on Cloud Run (non-prod).
-> Live customer traction is pre-launch. Everything below frames where the
-> platform is going, not metrics we already have.
+> **Stage.** Built, deployed, pre-launch. No production customers, GMV, or revenue.
+> Market figures come from public industry reports; everything about Servicas itself is
+> either shipped product (marked *built*) or a model assumption (marked *illustrative*).
 
 ---
 
-## 1. Executive summary
+## 1. In one page
 
-Servicas is an AI-augmented home-services marketplace. Customers book vetted providers
-for HVAC, plumbing, electrical, cleaning, lawn, pool, childcare, and emergency repair;
-providers run their entire job operations inside our app; admins curate the catalog
-per market; and regional managers grow new geographies.
+Servicas is an AI-augmented marketplace **and** operating system for home services —
+HVAC, plumbing, electrical, cleaning, lawn, pool, childcare, emergency repair.
 
-**One sentence:** _Servicas is the operating system for the local-services economy —
-multi-market, multi-language, multi-currency, mobile-first, AI-assisted._
+A customer describes a problem in text, voice, or a photo. AI ranks verified local
+providers. Booking, chat, invoicing, payment, reviews, and disputes all stay on the
+platform. Providers run their whole job operation in the same app, free. Operators launch
+and govern a new market from an admin console instead of an engineering ticket.
 
-**One line on the model:** _take rate on every transaction, plus subscription tiers
-for premium provider visibility and verification._
+**The model:** a take rate on completed work, plus subscription bundles and pay-per-action
+billing that are already built and admin-editable.
 
 ---
 
 ## 2. The problem
 
-Local home-services bookings are a $500B+ category globally and still mostly
-analog. The incumbents (Thumbtack, Angi, TaskRabbit, Handy) sell **leads, not
-outcomes** — providers pay per quote even if the customer never books, and
-customers wade through unverified bids.
+Home services is a ~$1.5T global category (~$600B US by 2027) that is still mostly analog.
+The incumbents — Angi, Thumbtack, TaskRabbit, Handy — sell **leads, not outcomes**.
 
-Pain on the customer side
-- No way to confirm who actually shows up — verification is opaque.
-- Quotes range 3–5× for the same job.
-- No standardized recourse for refunds or no-shows; disputes happen in DMs.
-- US-centric platforms; people in non-English markets fall back to WhatsApp groups.
-
-Pain on the provider side
-- Pay-per-lead is brutal: providers burn $30–$120 to acquire one booking, win-rate ~10%.
-- No operating system: jobs are tracked in spreadsheets, payments in Zelle, photos in
-  camera roll.
-- Single-language platforms exclude immigrant-owned small businesses that
-  dominate the labor pool in this category.
-
-Pain on the operator side (admins, regional managers)
-- Catalog launch is a content + compliance project (insurance, licensing, holidays,
-  tax). Existing platforms expose almost no admin tooling to scale a new market.
+| Side | What hurts |
+|---|---|
+| **Customers** | Verification is opaque: you cannot tell who will actually show up. Quotes for the same job spread 3–5×. Refunds and no-shows get settled in DMs. Non-English speakers fall back to WhatsApp groups. |
+| **Providers** | They pay $30–$120 per lead at roughly a 10% close rate — cash out the door whether or not a job happens. Then they run the real business in spreadsheets, Zelle, and a camera roll. Single-language platforms exclude the immigrant-owned businesses that make up much of this labor pool. |
+| **Operators** | Launching a market is a compliance and content project: licensing, insurance, holidays, tax, catalog. Existing platforms expose almost no tooling for it, so every new market is an engineering cycle. |
 
 ---
 
 ## 3. The solution
 
-```
-   ┌──────────────────────────────────────────────────────────────┐
-   │   Customer panel        Provider panel       Admin / Support  │
-   │   ─────────────        ──────────────       ────────────────  │
-   │   Search · Book        Inbox · Quote        Markets · Catalog │
-   │   Pay · Review         Travel · Invoice     Approvals · Audit │
-   │   AI-match providers   Customer chat        AI prompt tuning  │
-   └────────────────────────────────────────────────────────────────┘
-                                  │
-                  ┌───────────────┼────────────────┐
-                  │  7 backend services on Cloud   │
-                  │  Run · per-service Postgres    │
-                  │  Single React codebase wraps   │
-                  │  web · iOS · Android · desktop │
-                  └────────────────────────────────┘
-```
+Five workspaces — Customer, Provider, Admin, Support, Regional manager — on seven
+Spring Boot services, from one React codebase shipped to web, iOS/Android, and desktop.
 
-What sets Servicas apart from a bookings app
-- **End-to-end:** From discovery → booking → real-time chat → payment → review →
-  dispute resolution. No off-platform handoff.
-- **AI-native:** Matching, multi-language message translation, photo/video damage
-  assessment, voice transcription, ticket summarization — all built into the
-  ai-assistant service, not bolted on.
-- **Multi-market from day one:** Countries, states, cities, holidays, pricing rules,
-  tax, insurance requirements, and SLA policies are all configurable per region.
-- **Operator-grade admin:** Eight-tab admin workspace (dashboard, bookings,
-  customers, providers, services, markets, AI insights, finance) — the kind of
-  back-office competitors keep internal-only.
-- **One codebase, three platforms:** Capacitor wraps the React bundle as iOS /
-  Android; Tauri wraps the same bundle as macOS / Windows / Linux desktop. No
-  divergent native teams.
+| What sets it apart | Why it matters commercially |
+|---|---|
+| **End to end on platform** | Discovery → booking → chat → payment → review → dispute. Nothing hands off, so the transaction — and the take rate — lands here. |
+| **AI-native, not bolted on** | Matching, translation, photo triage, voice intake, ticket summaries. Lowers intake friction and support cost per booking. |
+| **Multi-market from day one** | Markets, holidays, pricing, tax, insurance rules, SLAs are configuration. A new market is days, not a release. |
+| **Operator-grade admin** | The back office competitors keep internal-only is a product surface here — which is what makes white-label possible later. |
+| **One codebase, three platforms** | Capacitor for mobile, Tauri for desktop. A small team covers a five-workspace product. |
+
+Detail: [BUSINESS_PROTOTYPE.md §2](./BUSINESS_PROTOTYPE.md#2-what-is-built). Per-service
+and per-workspace reference is available on request.
 
 ---
 
 ## 4. Why now
 
-| Tailwind                                          | Why it matters for Servicas                                  |
-|---------------------------------------------------|--------------------------------------------------------------|
-| Multimodal AI is finally cheap                    | Per-message translation, photo triage, voice intake are now viable unit-economically. |
-| Mobile-first immigrant workforce is underserved   | English-only platforms leave money on the table in TX, FL, CA, NY, AZ, GA. |
-| Customer trust in legacy marketplaces is eroding  | TaskRabbit/Angi NPS publicly weak; provider churn rising. |
-| Post-COVID home-improvement spend is sticky       | US home-services market grew from ~$430B (2020) to projected $600B+ (2027). |
-| Cloud Run / managed Postgres collapsed infra cost | A 7-service stack can run for low-three-digit USD/month on pilot infra. |
+| Tailwind | Why it matters here |
+|---|---|
+| Multimodal AI got cheap | Translation, photo triage, and voice intake are finally viable at marketplace unit economics |
+| A bilingual, mobile-first workforce is underserved | English-only platforms leave supply on the table in TX, FL, CA, NY, AZ, GA |
+| Trust in lead-gen is eroding on both sides | Weak customer sentiment and rising provider churn make a switch pitchable |
+| Home-services spend stayed sticky post-COVID | ~$430B US (2020) → $600B+ projected (2027) |
+| Managed cloud collapsed infra cost | A seven-service stack runs at low-three-digit USD/month at pilot scale |
 
 ---
 
-## 5. Market opportunity
+## 5. Market
 
-Framing (figures from public industry reports, not Servicas-specific):
-
-| Layer | What it counts                                              | Scale (USD)  |
-|-------|-------------------------------------------------------------|--------------|
-| **TAM** | Global home / local services GMV                          | ~$1.5T       |
-| **SAM** | English + Spanish North America home services GMV         | ~$200B       |
-| **SOM** | Reachable in years 1–3 (5 metros, 6 categories, 5% share)  | ~$300M GMV   |
-
-A 12% blended take rate on the SOM is a ~$36M revenue path within three years if
-execution lands two metros + Texas-wide coverage. Conservative; comparables show
-that the bottleneck is provider supply, not customer demand.
-
----
-
-## 6. Target customers
-
-### Customer side (demand)
-
-| Segment                  | Why they pick Servicas                                           |
-|--------------------------|------------------------------------------------------------------|
-| Homeowners 30–55         | Verified providers, transparent pricing, in-app warranty / refund. |
-| Bilingual households     | Real-time chat translation removes the language barrier.           |
-| Property managers / Airbnb hosts | Recurring scheduling, multi-property dashboards, single invoice across units. |
-| Small-business operators | Same flows for office cleaning, AC repair, generator service.      |
-
-### Provider side (supply)
-
-| Segment                          | Why they pick Servicas                                           |
-|----------------------------------|------------------------------------------------------------------|
-| Independent tradespeople (1–5 staff) | Free job inbox, no pay-per-lead, low take rate vs. Angi (~30%). |
-| Immigrant-owned small businesses     | Native-language customer chat + voice intake.                  |
-| Established multi-truck shops        | Document / insurance management, regional dispatch.            |
-
-### Operator side (B2B / white-label)
-
-- **Regional managers:** RM workspace gives readiness scoring + recruiting signals to
-  launch markets we don't operate directly.
-- **Future white-label:** Co-ops, franchisors, and municipal home-aid programs can
-  license the admin stack.
-
----
-
-## 7. Product surface today
-
-Seven Spring Boot services + one React codebase. Summary here; per-service detail on
-request.
-
-```
-   identity     →  auth, roles, feature flags
-   customer     →  saved homes, prefs, favorites, reminders
-   marketplace  →  catalog, providers, bookings, reviews, geo
-   payment      →  Stripe · Square · PayPal · Apple Pay  (provider-agnostic)
-   notification →  push · email · SMS · in-app threads
-   support      →  tickets · disputes · evidence · agent KPIs
-   ai-assistant →  matching · translation · vision · transcription · search
-```
-
-Five user panels (Customer, Provider, Admin, Support, Regional) — all shipped as
-the same React bundle for web, mobile, desktop.
-
----
-
-## 8. How Servicas makes money
-
-```
-                            ┌────────────────────────────┐
-                            │     Revenue streams        │
-                            └─────────────┬──────────────┘
-        ┌─────────────────┬───────────────┼─────────────────┬───────────────┐
-        ▼                 ▼               ▼                 ▼               ▼
-  Transaction fee   Provider sub      Featured        FX margin       Insurance /
-  (% of booking)    (monthly tiers)   placement       on cross-       warranty
-                                      (per slot)      currency        add-ons
-```
-
-### 8.1 Transaction take rate (primary)
-- 10–15% of GMV per completed booking, blended across categories.
-- Charged to the provider on settlement. Customer-facing price stays clean.
-- Higher take on low-ticket / one-off (cleaning) where CAC parity drives margin;
-  lower take on big-ticket (HVAC install) to keep providers loyal.
-
-### 8.2 Provider subscription tiers
-| Tier        | Monthly | Includes                                                       |
-|-------------|---------|----------------------------------------------------------------|
-| Free        | $0      | Inbox, basic profile, 5% lower take rate than pay-per-lead competitors |
-| Pro         | $49     | Verified badge surface, photo gallery, scheduling automation   |
-| Business    | $149    | Multi-staff, payroll exports, branded invoices, priority support |
-| Fleet       | custom  | API access, regional dispatch, route optimization              |
-
-### 8.3 Featured placement
-- Sponsored top-of-list per category × region. Auction or flat-rate per slot.
-- Capped per category to preserve customer trust (no more than 1 in 3 results).
-
-### 8.4 Payment & FX margin
-- 0.5–1.0% margin on cross-border or multi-currency settlement (FX rate table in
-  `payment-service`).
-- Pass-through on Stripe/Square fees, no markup on domestic card processing.
-
-### 8.5 Add-on attach (insurance, warranty, tips)
-- Optional damage/insurance add-on at checkout, ~5–10% of booking, 20% margin.
-- Tips: pass 100% to provider; counts toward retention, not revenue.
-
-### 8.6 What is already built vs. planned
-
-| Stream | State | Notes |
+| Layer | What it counts | Scale |
 |---|---|---|
-| Transaction take rate | Charging rails built (invoices, charges, refunds across four providers); rate applied at pilot launch | payment-service |
-| Subscription bundles (customer + provider) | **Built and admin-configurable** | Price, currency, interval, trial, and the exact portal sections a tier unlocks are editable without a deploy |
-| Pay-per-action tier | **Built** | A non-subscriber can accept a per-search / per-contact fee instead of subscribing — monetizes casual demand a subscription-only model loses |
-| Featured placement | Designed | Not enabled for pilot |
-| FX margin | Rate table built (admin FX panel); margin not yet applied | payment-service |
-| Insurance / warranty attach | Designed; vendor contracted at pilot launch | — |
+| **TAM** | Global home / local services GMV | ~$1.5T |
+| **SAM** | English + Spanish North America home services GMV | ~$200B |
+| **SOM** | Reachable in years 1–3 — 5 metros, 6 categories, ~5% local share | ~$300M GMV |
 
-The subscription tiers in §8.2 are the *intended pilot packaging*, not hard-coded
-product. Because bundles are data, three price points can be tested in a pilot quarter
-without an engineering cycle — see
-[BUSINESS_PROTOTYPE.md §5](./BUSINESS_PROTOTYPE.md#5-monetization-as-implemented).
-
-### Blended unit economics (illustrative — model, not actual)
-```
-   Avg booking value (ABV)         $180
-   Take rate                       12%        ─►  Gross revenue / booking   $21.60
-   Payment processing               ─$5.40
-   Notification + AI               ─$0.20
-   Support reserve (1%)            ─$1.80
-                                              ─►  Contribution / booking    $14.20
-   Repeat rate (yr 1)              35%
-   LTV / customer (24-month)       $98
-   Provider CAC target             $80        ─►  LTV : CAC                 1.2x → 3x at scale
-```
+At a 12% blended take rate the SOM implies a ~$36M annual revenue **ceiling** for the
+first three years. That is the size of the opening, not a plan: the 24-month model in
+[BUSINESS_PROTOTYPE.md §6](./BUSINESS_PROTOTYPE.md#6-illustrative-24-month-trajectory)
+reaches ~$39M annualized GMV by month 24, about 13% of that ceiling. In this category the
+binding constraint is provider supply, not customer demand — which is why the pilot spends
+most of its effort on recruiting.
 
 ---
 
-## 9. Go-to-market
+## 6. Who it is for
 
-### Phase 1 — single metro pilot (months 0–6)
-- Pick one US Sun-Belt metro (Atlanta or Austin — already in the seeder).
-- Recruit 100 verified providers across 4 categories.
-- Target 1,000 paying customers via paid social + Spanish-language radio.
-
-### Phase 2 — adjacent expansion (months 6–18)
-- Add 2 metros in the same state, ride compliance + tax sameness.
-- Layer Pro/Business subscriptions on top of free tier.
-- Open Regional Manager program for franchise-style market launches.
-
-### Phase 3 — multi-state + multi-language (months 18–36)
-- Texas-wide → Florida → California (Spanish-bilingual share is highest there).
-- White-label pilot with one co-op or municipal aid program.
-- Open API for property-management software integrations.
-
-### Customer acquisition mix
-| Channel                | Notes                                                          |
-|------------------------|----------------------------------------------------------------|
-| Paid social (Meta, TikTok) | Targeted by ZIP + homeowner intent signals                |
-| SEO / local pages      | Auto-generated per service × region (marketplace catalog drives content) |
-| Spanish-language radio + community partners | Channel underused by incumbents             |
-| Provider referral      | Provider invites customer once; both get credit toward next booking |
-| Property manager + Airbnb host integrations | High-velocity B2B referrer                  |
-
-### Provider acquisition mix
-| Channel                | Notes                                                          |
-|------------------------|----------------------------------------------------------------|
-| In-person door-knock   | Highest conversion in pilot phase (TaskRabbit's old playbook)  |
-| Trade association partnerships | NACE, PHCC, NARI — discount on Pro tier in year one     |
-| Existing-platform recruitment | Direct cold to top-rated profiles on competitors        |
-| Referral bounty        | $50 per onboarded provider who completes first paid job        |
+| Side | Who | Why they pick Servicas |
+|---|---|---|
+| **Demand** | Homeowners 30–55 · bilingual households · property managers and short-let hosts · small businesses | A verified provider at a transparent price, chat in their own language, and one place for booking, payment, and recourse. For multi-property owners: recurring scheduling and one invoice across units. |
+| **Supply** | Independent tradespeople (1–5 staff) · immigrant-owned businesses · multi-truck shops | No pay-per-lead, a free job inbox, fast payout, native-language customer chat, and document and insurance management. |
+| **Operator** | Regional managers today · co-ops, franchisors, municipal aid programs later | Readiness scoring and recruiting signals to launch markets we don't run directly — and, eventually, a white-label of the admin stack. |
 
 ---
 
-## 10. Competitive landscape
+## 7. How it makes money
 
-```
-                                                  Operator depth (admin / multi-market)
-                                                                ▲
-                                                                │
-                                                          Servicas
-                                                                │
-                                                                │
-              Mr. Handy                                          │
-                  ──────────                                    │
-                   Booksy                                       │
-                                                                │
-                                                                │
-   Handy / TaskRabbit  ─────────  Thumbtack  ─────────  Angi   │
-                                                                │
-                                                                │
-                                                                │
-                                                                ▼
-   ◄───────────────────────────────────────────────────────────►
-   Lead-based / English-only                AI-native / multi-language / multi-market
-```
+The primary stream is a take rate on completed bookings, charged to the provider at
+settlement. The customer-facing price stays clean.
 
-| Competitor   | Model                | Strength                          | Why Servicas wins                                                                 |
-|--------------|----------------------|-----------------------------------|------------------------------------------------------------------------------------|
-| Thumbtack    | Pay-per-quote        | Brand, SEO                        | Provider economics broken (sub-10% close rate); we charge on outcome, not lead.    |
-| Angi / HomeAdvisor | Lead-gen + Angi Key (subscription) | Massive ad spend       | Customer NPS weak; AI matching gives a more relevant first impression.             |
-| TaskRabbit   | Hourly tasker labor  | Brand, IKEA partnership           | Verified provider businesses (not gig taskers) for trades that need licensing.     |
-| Handy (ANGI) | Hourly cleaning      | Bundled with Angi                 | Multi-category from day one; not boxed into cleaning.                              |
-| Booksy       | Beauty / personal    | Strong vertical playbook          | We pick a different vertical (home) with a 4× larger TAM.                          |
-| Local FB groups / WhatsApp | Free informal | Trusted relationships          | We ship the trust layer (verification, escrow, dispute resolution) on top.         |
+| Stream | State | Detail |
+|---|---|---|
+| **Take rate** *(primary)* | Charging rails built; rate applied at pilot launch | 10–15% of booking value. Higher on low-ticket repeat work like cleaning, lower on big-ticket HVAC installs to keep providers loyal. |
+| **Subscription bundles**, customer + provider | **Built, admin-configurable** | Price, currency, interval, trial, and which portal sections a tier unlocks — all editable without a deploy |
+| **Pay-per-action** | **Built** | A non-subscriber accepts a per-search or per-contact fee instead of subscribing |
+| Featured placement | Designed; off during pilot | Sponsored slot per category × region, capped at 1 in 3 results to protect trust |
+| FX margin | Rate table built; margin not applied | 0.5–1.0% on cross-border settlement. No markup on domestic card processing. |
+| Insurance / warranty attach | Designed | ~5–10% of booking at ~20% margin; vendor contracted at pilot launch |
+| Tips | Built | 100% to the provider. Retention, not revenue. |
 
----
+**Intended pilot packaging** for the provider side — data in the bundle engine, not
+hard-coded, so three price points can be tested in a quarter:
 
-## 11. Moat
+| Tier | Monthly | Includes |
+|---|---|---|
+| Free | $0 | Job inbox, basic profile, full job OS |
+| Pro | $49 | Verified badge surface, photo gallery, scheduling automation |
+| Business | $149 | Multi-staff, payroll exports, branded invoices, priority support |
+| Fleet | Custom | API access, regional dispatch, route optimization |
 
-1. **Multi-tenant geo + compliance engine.** Country / state / city / holiday /
-   tax / insurance / SLA configuration that took 18 months to build correctly. New
-   markets launch in days, not quarters.
-2. **AI-prompt + model abstraction.** Admin-tuned system prompts per use case
-   (matching, summarization, vision) live in DB — not in code. Model swaps don't
-   need a deploy.
-3. **Single codebase across web / mobile / desktop.** Halves the engineering org
-   vs. competitors running parallel iOS + Android + web teams.
-4. **Provider-side operating system, not lead-gen.** Once a provider runs their
-   entire job flow in Servicas (invoices, photos, payouts, ratings, payroll),
-   switching cost is high.
-5. **Two-sided liquidity in immigrant + bilingual markets.** Hard for
-   English-only incumbents to copy; takes localized GTM + product, not just a
-   translate button.
+Why that matters pre-revenue: packaging is data, so a pilot tests price points instead of
+shipping releases, and two willingness-to-pay curves run on one mechanism — committed
+users subscribe, casual users pay per action. Detail: [BUSINESS_PROTOTYPE.md §4](./BUSINESS_PROTOTYPE.md#4-how-it-makes-money).
+
+### Unit economics (illustrative)
+
+| Line | Per booking |
+|---|---|
+| Average booking value | $180.00 |
+| Gross revenue at 12% take | $21.60 |
+| Payment processing | −$5.40 |
+| AI + notifications | −$0.20 |
+| Support / dispute reserve (1% of GMV) | −$1.80 |
+| **Contribution** | **$14.20** (66%) |
+
+24-month LTV on take rate alone is ~$98 per customer at a 35% year-one repeat rate,
+against ~$80 provider CAC and $35–$60 customer CAC: **1.2× LTV:CAC early, 3× the target
+at metro density.** The one number that decides the model is bookings per active provider
+per month — four works, two doubles the cost of supply.
 
 ---
 
-## 12. Current state (honest)
+## 8. Go-to-market
 
-| Pillar                    | Status                                                                  |
-|---------------------------|-------------------------------------------------------------------------|
-| Engineering               | 7 backends + 5 panels live on Cloud Run (non-prod). CI/CD green.       |
-| Booking lifecycle         | 7-status canonical state machine, internal + external provider flows.  |
-| Payments                  | Stripe / Square / PayPal / Apple Pay adapters; pending-provider safety. |
-| Monetization engine       | Subscription bundles + pay-per-action billing with section-level entitlements; admin-editable. |
-| AI                        | Translation, vision, transcription, matching, summarization shipped.    |
-| Admin / Regional tooling  | 8-tab admin + market readiness scoring.                                 |
-| Mobile / desktop          | Capacitor + Tauri builds working; single codebase.                      |
-| Customers / GMV           | **Pre-launch.** Pilot infra; no production customer base yet.           |
-| Provider supply           | **Pre-launch.** Seeder + onboarding wizard ready; live recruiting next. |
-| Compliance                | Documents review flow in place; legal entity per market TBD.            |
-| Team                      | Founder + technical contributors; first hires TBD.                      |
+| Phase | Window | What happens |
+|---|---|---|
+| **1 — One metro** | Months 0–6 | One US Sun-Belt metro (Atlanta or Austin, both already seeded). 100 verified providers across 4 categories. First 1,000 paying customers. Seven experiments with pre-committed decision rules — [BUSINESS_PROTOTYPE.md §7](./BUSINESS_PROTOTYPE.md#7-the-90-day-pilot). |
+| **2 — Adjacent** | Months 6–18 | Two more metros in the same state, riding identical tax and compliance. Paid tiers layered on the free tier. Regional-manager program opens. |
+| **3 — Multi-state** | Months 18–36 | Texas-wide → Florida → California. One white-label pilot with a co-op or municipal program. Open API for property-management software. |
 
----
-
-## 13. Roadmap (rolling 24 months)
-
-```
-   Q3 '26                Q4 '26              Q1 '27               Q2 '27               H2 '27 → '28
-   ──────                ──────              ──────               ──────               ────────────
-   First metro live      Pro tier launch     2nd + 3rd metro      White-label pilot    Multi-state
-   100 providers         Subscription rev    Texas-wide           Property mgmt API    EU pilot
-   1k customers          Featured slots      RM program           Insurance attach     Series A close
-   Pilot insurance att.  Provider referral   Voice-first intake   Tip / payout v2      Public catalog SEO
-```
+| Acquiring customers | Acquiring providers |
+|---|---|
+| Paid social by ZIP + homeowner intent | In-person door-knock — highest pilot conversion |
+| Auto-generated SEO pages per service × region | Trade associations (NACE, PHCC, NARI), Pro-tier discount year one |
+| Spanish-language radio and community partners | Direct recruiting of top-rated profiles on competitors |
+| Provider referral — both sides get booking credit | $50 bounty per provider who completes a first paid job |
+| Property manager and host integrations as B2B referrers | |
 
 ---
 
-## 14. Risks
+## 9. Competition
 
-| Risk                                | Mitigation                                                                |
-|-------------------------------------|---------------------------------------------------------------------------|
-| Two-sided cold start                | Single-metro launch; door-knock supply before paid demand.                |
-| Trust / safety incident             | Background-check partner integration; insurance attach; verified badges.  |
-| Payment provider concentration       | Provider-agnostic abstraction; can move volume between Stripe/Square in <1 day. |
-| AI cost spike                       | Admin prompt overrides + per-tenant rate limits; cheaper models for non-customer-facing tasks. |
-| Regulatory (licensing, tax)         | Per-market compliance engine; legal review per state at launch.           |
-| Competitor M&A                      | Speed-to-market in underserved metros; bilingual moat is structural.       |
-| Founder concentration               | Documentation + CI/CD complete; bus factor mitigation in roadmap.          |
+Two axes matter: **charging on outcomes instead of leads**, and **operator depth** — the
+multi-market, multi-language admin layer. Every incumbent sits on the lead-gen,
+English-only, thin-admin corner of that map.
 
----
-
-## 15. Use of funds (illustrative — $2M seed ask)
-
-| Bucket                        | %     | Notes                                                  |
-|-------------------------------|-------|--------------------------------------------------------|
-| Provider acquisition (metro 1) | 25%  | Door-knock + bounty + onboarding ops                   |
-| Customer acquisition (metro 1) | 25%  | Paid social, Spanish-language community, local SEO    |
-| Engineering (2 hires)         | 25%   | Senior backend + mobile lead                           |
-| Trust & safety / compliance   | 10%   | Background-check vendor, insurance attach pilot       |
-| Infra + AI cost runway        | 5%    | 12-month buffer at projected scale                     |
-| Working capital / G&A         | 10%   | Legal, accounting, regional entity setup               |
-
-Burn target: ~$110k/month at month 6, ~$160k/month at month 12.
+| Competitor | Model | Their strength | Why Servicas wins |
+|---|---|---|---|
+| Thumbtack | Pay-per-quote | Brand, SEO | Provider economics are broken at a sub-10% close rate; we charge on the outcome |
+| Angi / HomeAdvisor | Lead-gen + subscription | Massive ad spend | Weak customer sentiment; AI matching makes a better first impression |
+| TaskRabbit | Hourly gig labor | Brand, IKEA partnership | Verified provider *businesses*, for trades that need licensing |
+| Handy (ANGI) | Hourly cleaning | Bundled with Angi | Multi-category from day one, not boxed into cleaning |
+| Booksy | Beauty / personal services | Strong vertical playbook | Different vertical, ~4× the TAM |
+| Facebook groups, WhatsApp | Free and informal | Real trust relationships | We ship the trust layer — verification, on-platform payment, disputes — on top |
 
 ---
 
-## 16. Why us, why now (closing)
+## 10. Moat
 
-The platform is built. The 7-service backend, the 5-panel React app, the AI layer,
-the payment abstraction, the multi-market admin — all shipped and CI-green. What
-remains is the GTM motion: pick a metro, recruit 100 providers, acquire the first
-1,000 customers, and let the operating-system moat compound from there.
-
-Most marketplaces raise to build the product. We're raising to put a built product
-into market.
+1. **Geo and compliance engine.** Market, tax, insurance, holiday, and SLA rules as
+   configuration. Slow to model correctly, unglamorous to copy, and it is what makes a
+   market launch in days.
+2. **Provider-side operating system.** Once invoices, photos, payouts, and ratings live in
+   Servicas, leaving is expensive. Lead-gen has no switching cost at all.
+3. **Prompt and model abstraction.** Prompts live in the database, admin-tuned. Models swap
+   without a deploy.
+4. **One codebase across three platforms.** A structurally smaller engineering org than
+   competitors running parallel native teams.
+5. **Liquidity in bilingual markets.** Needs localized GTM and product, not a translate
+   button — which is why English-only incumbents have not taken it.
 
 ---
 
-## 17. Contact
+## 11. Where the product actually stands
 
-- Founder: Olivier Santos
-- Repo (read-only investor access on request): github.com/servicas
+| Pillar | Status |
+|---|---|
+| Product | 7 backends + 5 workspaces on Cloud Run (non-prod), CI green. Booking lifecycle, payments (sandbox), monetization, AI, and the admin console all built. |
+| Mobile / desktop | Capacitor + Tauri builds working from the single codebase |
+| **Customers, GMV, revenue** | **Pre-launch.** Nothing in production. |
+| **Provider supply** | **Pre-launch.** Onboarding wizard ready; live recruiting is next. |
+| Compliance | Document review flow built; legal entity per market not started |
+| Team | Founder + technical contributors; first hires open |
 
-_Document version: pilot · last updated 2026-09-23._
+Per-layer breakdown: [BUSINESS_PROTOTYPE.md §2](./BUSINESS_PROTOTYPE.md#2-what-is-built).
+
+The engineering repo keeps a running list of the sections that are still dashboard-style
+rather than full workflows; it is available to anyone doing diligence.
+
+---
+
+## 12. Roadmap
+
+Quarters are relative to the pilot start, not calendar commitments.
+
+| Pilot Q1 | Q2 | Q3 | Q4 | Year 2+ |
+|---|---|---|---|---|
+| First metro live | Pro tier launch | Metros 2 and 3 | White-label pilot | Multi-state |
+| 100 providers | Subscription revenue | Texas-wide | Property-management API | EU pilot |
+| 1,000 customers | Featured slots | RM program | Insurance attach | Public catalog SEO |
+| Insurance attach pilot | Provider referral loop | Voice-first intake | Payout v2 | Series A |
+
+---
+
+## 13. Risks
+
+| Risk | Mitigation |
+|---|---|
+| Two-sided cold start | One metro. Supply recruited before paid demand switches on. |
+| Providers churn back to lead-gen | The job OS is the switching cost — pilot experiment #1 measures it, with a kill rule |
+| Trust or safety incident | Verification, document review, background-check partner, insurance attach, and the dispute workflow are built |
+| Licensing and tax per market | Per-market compliance rules in the geo engine; legal review per state at launch |
+| Key-person concentration | Docs, CI/CD, and tests in place; first hires are senior backend + mobile |
+| Pre-revenue | Acknowledged. The raise funds go-to-market for a product that already exists. |
+
+Payment-rail, AI-cost, and remaining risks, with pilot decision rules:
+[BUSINESS_PROTOTYPE.md §9](./BUSINESS_PROTOTYPE.md#9-risks).
+
+---
+
+## 14. Use of funds (illustrative — $2M seed ask)
+
+| Bucket | % | Notes |
+|---|---|---|
+| Provider acquisition, metro 1 | 25% | Door-knock, bounty, onboarding ops |
+| Customer acquisition, metro 1 | 25% | Paid social, Spanish-language community, local SEO |
+| Engineering, 2 hires | 25% | Senior backend + mobile lead |
+| Trust & safety, compliance | 10% | Background-check vendor, insurance attach pilot |
+| Infra + AI runway | 5% | 12-month buffer at projected scale |
+| Working capital, G&A | 10% | Legal, accounting, per-market entity setup |
+
+Burn target: ~$110k/month at month 6, ~$160k/month at month 12. Spend is reported against
+the seven pilot experiments, not against a feature roadmap.
+
+Useful beyond capital: pilot partners with concentrated demand or supply in one metro,
+introductions to background-check and insurance vendors, and a first metro-launcher hire.
+
+---
+
+## 15. Closing
+
+The platform is built — seven services, five workspaces, the AI layer, the payment
+abstraction, the multi-market admin, all shipped and CI-green. What remains is go-to-market:
+pick a metro, recruit 100 providers, win the first 1,000 customers, and let the
+switching cost compound.
+
+**Most marketplaces raise to build the product. This one is built; the raise puts it into
+a market.**
+
+_Live demo on request: one booking followed across all five workspaces, from AI match to
+payment to dispute — [BUSINESS_PROTOTYPE.md §8](./BUSINESS_PROTOTYPE.md#8-the-demo-12-minutes)._
+
+Founder: Olivier Santos · repo access for investors on request.
+
+_Pilot version · last updated 2026-09-26._

@@ -207,7 +207,7 @@ business story rather than the feature list. Demo accounts are provided on reque
 A seed round to take one metro to liquidity: provider recruiting, customer acquisition,
 two senior engineering hires, trust-and-safety vendors — reported against the seven
 experiments in §7. Breakdown:
-[BUSINESS_OVERVIEW.md §15](./BUSINESS_OVERVIEW.md#15-use-of-funds-illustrative--2m-seed-ask).
+[BUSINESS_OVERVIEW.md §14](./BUSINESS_OVERVIEW.md#14-use-of-funds-illustrative--2m-seed-ask).
 
 Useful beyond capital: pilot partners with concentrated demand or supply in one metro
 (property managers, short-let operators, trade associations), introductions to
