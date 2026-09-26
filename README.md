@@ -15,7 +15,7 @@ platform. Providers run their whole job operation in the same app.
 |---|---|---|
 | **[INVESTOR_BRIEF.md](./INVESTOR_BRIEF.md)** | The whole story on one page | 2 min |
 | **[BUSINESS_PROTOTYPE.md](./BUSINESS_PROTOTYPE.md)** | What is built, the business model, unit economics, the 90-day pilot and its decision rules, the demo | 12 min |
-| **[BUSINESS_OVERVIEW.md](./BUSINESS_OVERVIEW.md)** | Market sizing, competition, go-to-market, roadmap, use of funds | 10 min |
+| **[BUSINESS_OVERVIEW.md](./BUSINESS_OVERVIEW.md)** | Market sizing, competition, the plan, risks, the ask | 8 min |
 
 ## In one paragraph
 

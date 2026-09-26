@@ -65,7 +65,7 @@ pay, support cost per booking, days-to-launch a market.
 
 A seed round to take one metro to liquidity: provider recruiting, customer acquisition,
 two senior engineering hires, trust-and-safety vendors. Breakdown in
-[BUSINESS_OVERVIEW.md §14](./BUSINESS_OVERVIEW.md#14-use-of-funds-illustrative--2m-seed-ask).
+[BUSINESS_OVERVIEW.md §11](./BUSINESS_OVERVIEW.md#11-the-ask-illustrative--2m-seed).
 Also valuable: pilot partners with concentrated demand or supply in one metro,
 introductions to background-check and insurance vendors, a first metro-launcher hire.
 
